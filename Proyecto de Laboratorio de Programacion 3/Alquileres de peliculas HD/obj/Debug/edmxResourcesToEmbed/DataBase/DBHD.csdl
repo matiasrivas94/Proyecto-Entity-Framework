@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AlquilerHDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Alquileres">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FK_id_usuario" Type="Int32" Nullable="false" />
+    <Property Name="FK_id_cliente" Type="Int32" Nullable="false" />
+    <Property Name="FechaEntrega" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="FechaDevolucion" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Estado" Type="Boolean" Nullable="false" />
+    <Property Name="Total" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Usuarios" Relationship="Self.FK__Alquilere__FK_id__5441852A" FromRole="Alquileres" ToRole="Usuarios" />
+    <NavigationProperty Name="Clientes" Relationship="Self.FK__Alquilere__FK_id__5535A963" FromRole="Alquileres" ToRole="Clientes" />
+    <NavigationProperty Name="Peliculas" Relationship="Self.FK__Peliculas__idAlq__5812160E" FromRole="Alquileres" ToRole="Peliculas" />
+  </EntityType>
+  <EntityType Name="Clientes">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Dni" Type="Int32" Nullable="false" />
+    <Property Name="Direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Celular_Telefono" Type="Int32" Nullable="false" />
+    <Property Name="Estado" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Alquileres" Relationship="Self.FK__Alquilere__FK_id__5535A963" FromRole="Clientes" ToRole="Alquileres" />
+    <NavigationProperty Name="Pagos" Relationship="Self.FK_Pagos_Clientes" FromRole="Clientes" ToRole="Pagos" />
+  </EntityType>
+  <EntityType Name="Pagos">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Cliente" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Dni" Type="Int32" Nullable="false" />
+    <Property Name="Tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Monto" Type="Int32" Nullable="false" />
+    <Property Name="FK_id_cliente" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Clientes" Relationship="Self.FK_Pagos_Clientes" FromRole="Pagos" ToRole="Clientes" />
+  </EntityType>
+  <EntityType Name="Peliculas">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Genero" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Duracion" Type="Int32" />
+    <Property Name="Pais" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Sinopsis" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Precio" Type="Int32" />
+    <Property Name="Imagen" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="Estado" Type="Boolean" />
+    <Property Name="Stock" Type="Int32" />
+    <Property Name="idAlquiler" Type="Int32" />
+    <NavigationProperty Name="Alquileres" Relationship="Self.FK__Peliculas__idAlq__5812160E" FromRole="Peliculas" ToRole="Alquileres" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Usuarios">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Contraseña" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Dni" Type="Int32" Nullable="false" />
+    <Property Name="Estado" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Alquileres" Relationship="Self.FK__Alquilere__FK_id__5441852A" FromRole="Usuarios" ToRole="Alquileres" />
+  </EntityType>
+  <Association Name="FK__Alquilere__FK_id__5441852A">
+    <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+    <End Role="Alquileres" Type="Self.Alquileres" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuarios">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Alquileres">
+        <PropertyRef Name="FK_id_usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Alquilere__FK_id__5535A963">
+    <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+    <End Role="Alquileres" Type="Self.Alquileres" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clientes">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Alquileres">
+        <PropertyRef Name="FK_id_cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Peliculas__idAlq__5812160E">
+    <End Role="Alquileres" Type="Self.Alquileres" Multiplicity="0..1" />
+    <End Role="Peliculas" Type="Self.Peliculas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Alquileres">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Peliculas">
+        <PropertyRef Name="idAlquiler" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pagos_Clientes">
+    <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+    <End Role="Pagos" Type="Self.Pagos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clientes">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Pagos">
+        <PropertyRef Name="FK_id_cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="AlquilerHDEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Alquileres" EntityType="Self.Alquileres" />
+    <EntitySet Name="Clientes" EntityType="Self.Clientes" />
+    <EntitySet Name="Pagos" EntityType="Self.Pagos" />
+    <EntitySet Name="Peliculas" EntityType="Self.Peliculas" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
+    <AssociationSet Name="FK__Alquilere__FK_id__5441852A" Association="Self.FK__Alquilere__FK_id__5441852A">
+      <End Role="Usuarios" EntitySet="Usuarios" />
+      <End Role="Alquileres" EntitySet="Alquileres" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Alquilere__FK_id__5535A963" Association="Self.FK__Alquilere__FK_id__5535A963">
+      <End Role="Clientes" EntitySet="Clientes" />
+      <End Role="Alquileres" EntitySet="Alquileres" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Peliculas__idAlq__5812160E" Association="Self.FK__Peliculas__idAlq__5812160E">
+      <End Role="Alquileres" EntitySet="Alquileres" />
+      <End Role="Peliculas" EntitySet="Peliculas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pagos_Clientes" Association="Self.FK_Pagos_Clientes">
+      <End Role="Clientes" EntitySet="Clientes" />
+      <End Role="Pagos" EntitySet="Pagos" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

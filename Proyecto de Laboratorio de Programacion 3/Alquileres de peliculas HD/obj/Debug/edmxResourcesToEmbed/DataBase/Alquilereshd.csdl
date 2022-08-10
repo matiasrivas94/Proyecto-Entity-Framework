@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AlquilerHDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="DBHD" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Alquileres" EntityType="AlquilerHDModel.Alquileres" />
+    <EntitySet Name="Clientes" EntityType="AlquilerHDModel.Clientes" />
+    <EntitySet Name="Detalle" EntityType="AlquilerHDModel.Detalle" />
+    <EntitySet Name="Pagos" EntityType="AlquilerHDModel.Pagos" />
+    <EntitySet Name="Peliculas" EntityType="AlquilerHDModel.Peliculas" />
+    <EntitySet Name="Usuarios" EntityType="AlquilerHDModel.Usuarios" />
+    <AssociationSet Name="FK__Alquilere__FK_id__5441852A" Association="AlquilerHDModel.FK__Alquilere__FK_id__5441852A">
+      <End Role="Usuarios" EntitySet="Usuarios" />
+      <End Role="Alquileres" EntitySet="Alquileres" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Alquilere__FK_id__5535A963" Association="AlquilerHDModel.FK__Alquilere__FK_id__5535A963">
+      <End Role="Clientes" EntitySet="Clientes" />
+      <End Role="Alquileres" EntitySet="Alquileres" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Detalle__FK_id_a__02FC7413" Association="AlquilerHDModel.FK__Detalle__FK_id_a__02FC7413">
+      <End Role="Alquileres" EntitySet="Alquileres" />
+      <End Role="Detalle" EntitySet="Detalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Pagos__FK_id_Alq__10566F31" Association="AlquilerHDModel.FK__Pagos__FK_id_Alq__10566F31">
+      <End Role="Alquileres" EntitySet="Alquileres" />
+      <End Role="Pagos" EntitySet="Pagos" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Detalle__FK_id_p__03F0984C" Association="AlquilerHDModel.FK__Detalle__FK_id_p__03F0984C">
+      <End Role="Peliculas" EntitySet="Peliculas" />
+      <End Role="Detalle" EntitySet="Detalle" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Alquileres">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FK_id_usuario" Type="Int32" Nullable="false" />
+    <Property Name="FK_id_cliente" Type="Int32" Nullable="false" />
+    <Property Name="FechaEntrega" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="FechaDevolucion" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Estado" Type="Boolean" Nullable="false" />
+    <Property Name="Total" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Usuarios" Relationship="AlquilerHDModel.FK__Alquilere__FK_id__5441852A" FromRole="Alquileres" ToRole="Usuarios" />
+    <NavigationProperty Name="Clientes" Relationship="AlquilerHDModel.FK__Alquilere__FK_id__5535A963" FromRole="Alquileres" ToRole="Clientes" />
+    <NavigationProperty Name="Detalle" Relationship="AlquilerHDModel.FK__Detalle__FK_id_a__02FC7413" FromRole="Alquileres" ToRole="Detalle" />
+    <NavigationProperty Name="Pagos" Relationship="AlquilerHDModel.FK__Pagos__FK_id_Alq__10566F31" FromRole="Alquileres" ToRole="Pagos" />
+  </EntityType>
+  <EntityType Name="Clientes">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Apellido" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Dni" Type="Int32" Nullable="false" />
+    <Property Name="Direccion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Celular_Telefono" Type="Int32" Nullable="false" />
+    <Property Name="Estado" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Alquileres" Relationship="AlquilerHDModel.FK__Alquilere__FK_id__5535A963" FromRole="Clientes" ToRole="Alquileres" />
+  </EntityType>
+  <EntityType Name="Detalle">
+    <Key>
+      <PropertyRef Name="idDetalle" />
+    </Key>
+    <Property Name="FK_id_alquileres" Type="Int32" Nullable="false" />
+    <Property Name="FK_id_peliculas" Type="Int32" Nullable="false" />
+    <Property Name="idDetalle" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Alquileres" Relationship="AlquilerHDModel.FK__Detalle__FK_id_a__02FC7413" FromRole="Detalle" ToRole="Alquileres" />
+    <NavigationProperty Name="Peliculas" Relationship="AlquilerHDModel.FK__Detalle__FK_id_p__03F0984C" FromRole="Detalle" ToRole="Peliculas" />
+  </EntityType>
+  <EntityType Name="Pagos">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tipo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="monto" Type="Int32" Nullable="false" />
+    <Property Name="FK_id_Alquiler" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Alquileres" Relationship="AlquilerHDModel.FK__Pagos__FK_id_Alq__10566F31" FromRole="Pagos" ToRole="Alquileres" />
+  </EntityType>
+  <EntityType Name="Peliculas">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Genero" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Duracion" Type="Int32" Nullable="false" />
+    <Property Name="Pais" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Sinopsis" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Precio" Type="Int32" Nullable="false" />
+    <Property Name="Imagen" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+    <Property Name="Estado" Type="Boolean" Nullable="false" />
+    <Property Name="Stock" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Detalle" Relationship="AlquilerHDModel.FK__Detalle__FK_id_p__03F0984C" FromRole="Peliculas" ToRole="Detalle" />
+  </EntityType>
+  <EntityType Name="Usuarios">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Contraseña" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Tipo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Dni" Type="Int32" Nullable="false" />
+    <Property Name="Estado" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Alquileres" Relationship="AlquilerHDModel.FK__Alquilere__FK_id__5441852A" FromRole="Usuarios" ToRole="Alquileres" />
+  </EntityType>
+  <Association Name="FK__Alquilere__FK_id__5441852A">
+    <End Type="AlquilerHDModel.Usuarios" Role="Usuarios" Multiplicity="1" />
+    <End Type="AlquilerHDModel.Alquileres" Role="Alquileres" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuarios">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Alquileres">
+        <PropertyRef Name="FK_id_usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Alquilere__FK_id__5535A963">
+    <End Type="AlquilerHDModel.Clientes" Role="Clientes" Multiplicity="1" />
+    <End Type="AlquilerHDModel.Alquileres" Role="Alquileres" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clientes">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Alquileres">
+        <PropertyRef Name="FK_id_cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Detalle__FK_id_a__02FC7413">
+    <End Type="AlquilerHDModel.Alquileres" Role="Alquileres" Multiplicity="1" />
+    <End Type="AlquilerHDModel.Detalle" Role="Detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Alquileres">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Detalle">
+        <PropertyRef Name="FK_id_alquileres" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Pagos__FK_id_Alq__10566F31">
+    <End Type="AlquilerHDModel.Alquileres" Role="Alquileres" Multiplicity="1" />
+    <End Type="AlquilerHDModel.Pagos" Role="Pagos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Alquileres">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Pagos">
+        <PropertyRef Name="FK_id_Alquiler" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Detalle__FK_id_p__03F0984C">
+    <End Type="AlquilerHDModel.Peliculas" Role="Peliculas" Multiplicity="1" />
+    <End Type="AlquilerHDModel.Detalle" Role="Detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Peliculas">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Detalle">
+        <PropertyRef Name="FK_id_peliculas" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

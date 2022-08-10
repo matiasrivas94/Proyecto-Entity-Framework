@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7e6f11af890c4e21b11340fb36280d77" Name="Diagram1">
+        <EntityTypeShape EntityType="AlquilerHDModel.Alquileres" Width="1.5" PointX="4.25" PointY="1.875" />
+        <EntityTypeShape EntityType="AlquilerHDModel.Clientes" Width="1.5" PointX="6.25" PointY="4.125" />
+        <EntityTypeShape EntityType="AlquilerHDModel.Detalle" Width="1.5" PointX="8" PointY="2.5" />
+        <EntityTypeShape EntityType="AlquilerHDModel.Pagos" Width="1.5" PointX="6.25" PointY="1.125" />
+        <EntityTypeShape EntityType="AlquilerHDModel.Peliculas" Width="1.5" PointX="10.25" PointY="2.375" />
+        <EntityTypeShape EntityType="AlquilerHDModel.Usuarios" Width="1.5" PointX="2" PointY="2.25" />
+        <AssociationConnector Association="AlquilerHDModel.FK__Alquilere__FK_id__5441852A" />
+        <AssociationConnector Association="AlquilerHDModel.FK__Alquilere__FK_id__5535A963" />
+        <AssociationConnector Association="AlquilerHDModel.FK__Detalle__FK_id_a__02FC7413" />
+        <AssociationConnector Association="AlquilerHDModel.FK__Pagos__FK_id_Alq__10566F31" />
+        <AssociationConnector Association="AlquilerHDModel.FK__Detalle__FK_id_p__03F0984C" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
